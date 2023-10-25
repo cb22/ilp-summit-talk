@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "postgres"
+version = "0.1.0"
+description = ""
+authors = ["Federico Lorenzi <florenzi@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+uuid6 = "^2023.5.2"
+asyncpg = "^0.28.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
