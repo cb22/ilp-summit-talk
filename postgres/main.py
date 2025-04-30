@@ -68,6 +68,7 @@ async def create_accounts(conn, accounts):
 # Clear any existing entries
 async def clear_database(conn):
     await conn.execute("TRUNCATE TABLE accounts, transfers")
+    await conn.execute("SET SESSION CHARACTERISTICS AS TRANSACTION ISOLATION LEVEL SERIALIZABLE")
 
 
 transfer_target = None
@@ -181,12 +182,12 @@ async def create_transfers_v1(conn, transfers):
 
 
 async def main(fn, batches):
-    localhost = "postgresql://postgres@localhost/tigerbeetle"
+    localhost = "postgresql://postgres@localhost/test"
 
     # Don't get any clever ideas - it's limited to the VPC :)
-    prod = "postgresql://postgres:uHUch8TZMyTVM1A4@costadb.cwdzzbfspceb.us-east-2.rds.amazonaws.com/tigerbeetle"
+    #prod = "postgresql://postgres:uHUch8TZMyTVM1A4@costadb.cwdzzbfspceb.us-east-2.rds.amazonaws.com/tigerbeetle"
 
-    conn = await asyncpg.connect(prod)
+    conn = await asyncpg.connect(localhost)
     await clear_database(conn)
 
     accounts = [astuple(Account()) for i in range(0, 2)]
